@@ -1,2 +1,2 @@
-HelloWorld.java
- HelloWorld
+SomeNewClassName.java
+ SomeNewClassName
