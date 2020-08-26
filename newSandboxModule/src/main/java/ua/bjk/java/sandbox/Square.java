@@ -10,4 +10,6 @@ public class Square {
     public double area(){
         return side*side;
     }
+    
+
 }
