@@ -1,20 +1,19 @@
-import org.openqa.selenium.By;
+package bjk.learn.java.barancev.tests;
+
 import org.testng.annotations.Test;
 
-public class FirstTest extends TestBase{
-
-    private void openCategory(final String category) {
-        click(By.cssSelector("a[href*='" + category + "']"));
-    }
+public class FirstTest extends TestBase {
 
     @Test
     public void testOpenAllCategories() {
+        
+        app.getNavigationHelper().openMainPage();
 
-        openCategory("FISH");
-        openCategory("DOGS");
-        openCategory("CATS");
-        openCategory("REPTILES");
-        openCategory("BIRDS");
+        app.getNavigationHelper().openCategory("FISH");
+        app.getNavigationHelper().openCategory("DOGS");
+        app.getNavigationHelper().openCategory("CATS");
+        app.getNavigationHelper().openCategory("REPTILES");
+        app.getNavigationHelper().openCategory("BIRDS");
 
 
 
