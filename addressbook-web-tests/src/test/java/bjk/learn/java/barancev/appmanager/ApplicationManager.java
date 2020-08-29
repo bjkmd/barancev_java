@@ -1,11 +1,13 @@
 package bjk.learn.java.barancev.appmanager;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class ApplicationManager extends HelperBase {
+public class ApplicationManager {
+
+    protected WebDriver driver;
 
     NavigationHelper navigationHelper;
 
@@ -14,16 +16,18 @@ public class ApplicationManager extends HelperBase {
     }
 
     public void init() {
-        navigationHelper = new NavigationHelper();
-        driver.get("http://localhost:8099/actions/Catalog.action");
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.get("http://localhost:8099/");
+        driver.manage().window().setSize(new Dimension(1680, 991));
 
-//        navigationHelper.openPetStore();
-//        click(By.linkText("Enter the Store"));
+        navigationHelper = new NavigationHelper(driver);
+        navigationHelper.openPetStore();
+
     }
 
     public void stop() {
         driver.quit();
     }
-
 
 }

@@ -1,19 +1,21 @@
 package bjk.learn.java.barancev.tests;
 
+import bjk.learn.java.barancev.appmanager.NavigationHelper;
 import org.testng.annotations.Test;
 
 public class FirstTest extends TestBase {
 
     @Test
     public void testOpenAllCategories() {
-        
-        app.getNavigationHelper().openMainPage();
 
-        app.getNavigationHelper().openCategory("FISH");
-        app.getNavigationHelper().openCategory("DOGS");
-        app.getNavigationHelper().openCategory("CATS");
-        app.getNavigationHelper().openCategory("REPTILES");
-        app.getNavigationHelper().openCategory("BIRDS");
+        NavigationHelper navigate = app.getNavigationHelper();
+
+        navigate.openMainPage();
+        navigate.openCategory("FISH");
+        navigate.openCategory("DOGS");
+        navigate.openCategory("CATS");
+        navigate.openCategory("REPTILES");
+        navigate.openCategory("BIRDS");
 
 
 
