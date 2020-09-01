@@ -1,6 +1,6 @@
 package bjk.learn.java.barancev.dataObjects;
 
-public class RegistrationData {
+public class UserData {
     private final String name;
     private final String password;
     private final String first;
@@ -14,14 +14,14 @@ public class RegistrationData {
     private final String zip;
     private final String country;
 
-    public RegistrationData(String name, String password){
+    public UserData(String name, String password){
         this.name = name;
         this.password = password;
 
         this.first = "First";
         this.last = "Last";
         this.email = "a@b.c";
-        this.phone = "1234567";;
+        this.phone = "1234567";
         this.addr1 = "addr1";
         this.addr2 = "addr2";
         this.city = "City";

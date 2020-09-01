@@ -1,13 +1,16 @@
 package bjk.learn.java.barancev.tests;
 
+import bjk.learn.java.barancev.dataObjects.UserDataBuilder;
 import bjk.learn.java.barancev.helpers.NavigationHelper;
-import bjk.learn.java.barancev.dataObjects.RegistrationData;
+import bjk.learn.java.barancev.dataObjects.UserData;
+import bjk.learn.java.barancev.helpers.UserActionsHelper;
 import org.testng.annotations.Test;
 
 public class FirstTest extends TestBase {
 
 
     private NavigationHelper navigate;
+    private UserActionsHelper userActions;
 
     @Test
     public void testOpenAllCategories() {
@@ -28,10 +31,15 @@ public class FirstTest extends TestBase {
     public void testRegistration() {
 
         navigate = app.getNavigationHelper();
+        userActions = app.getUserActionsHelper();
+        UserData userData = new UserDataBuilder().
+                setName("name3").
+                setPassword("password").
+                createUserData();
+
         navigate.openLoginPage();
         navigate.openRegistrationForm();
-        navigate.fillRegistrationForm(new RegistrationData("name3",
-                "password"));
+        userActions.fillRegistrationForm(userData);
 
     }
 

@@ -1,7 +1,7 @@
 package bjk.learn.java.barancev.appmanager;
 
 import bjk.learn.java.barancev.helpers.NavigationHelper;
-//import io.github.bonigarcia.wdm.WebDriverManager;
+import bjk.learn.java.barancev.helpers.UserActionsHelper;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -15,13 +15,16 @@ public class ApplicationManager {
     protected WebDriver driver;
 
     NavigationHelper navigationHelper;
+    UserActionsHelper userActionsHelper;
     private final String browser;
 
     public ApplicationManager(String browser) {
-
         this.browser = browser;
     }
 
+    public UserActionsHelper getUserActionsHelper() {
+        return userActionsHelper;
+    }
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
     }
@@ -37,6 +40,7 @@ public class ApplicationManager {
         driver.manage().window().setSize(new Dimension(1680, 991));
 
         navigationHelper = new NavigationHelper(driver);
+        userActionsHelper = new UserActionsHelper(driver);
 
         navigationHelper.openPageByURL("http://localhost:8099/");
 
