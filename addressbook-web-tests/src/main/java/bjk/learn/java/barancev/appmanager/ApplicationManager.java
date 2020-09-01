@@ -1,5 +1,7 @@
 package bjk.learn.java.barancev.appmanager;
 
+import bjk.learn.java.barancev.helpers.NavigationHelper;
+//import io.github.bonigarcia.wdm.WebDriverManager;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -25,21 +27,19 @@ public class ApplicationManager {
     }
 
     public void init() {
-        switch (browser) {
-            case CHROME:
-                WebDriverManager.chromedriver().setup();
-                driver = new ChromeDriver();
-                break;
-            case FIREFOX:
-                WebDriverManager.firefoxdriver().setup();
-                driver = new FirefoxDriver();
-                break;
-
+        if (browser.equals(CHROME)) {
+            WebDriverManager.chromedriver().setup();
+            driver = new ChromeDriver();
+        } else if (browser.equals(FIREFOX)) {
+            WebDriverManager.firefoxdriver().setup();
+            driver = new FirefoxDriver();
         }
-        driver.get("http://localhost:8099/");
         driver.manage().window().setSize(new Dimension(1680, 991));
 
         navigationHelper = new NavigationHelper(driver);
+
+        navigationHelper.openPageByURL("http://localhost:8099/");
+
         navigationHelper.openPetStore();
 
     }
