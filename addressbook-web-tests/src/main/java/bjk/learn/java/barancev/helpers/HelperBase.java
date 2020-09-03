@@ -3,6 +3,7 @@ package bjk.learn.java.barancev.helpers;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 
 public class HelperBase {
   protected WebDriver driver;
@@ -26,11 +27,20 @@ public class HelperBase {
     }
   }
 
-  public boolean isAlertPresent(){
+  public boolean isAlertPresent() {
     try {
       driver.switchTo().alert();
       return true;
     } catch (NoAlertPresentException e) {
+      return false;
+    }
+  }
+
+  protected boolean isElementPresent(By locator) {
+    try {
+      driver.findElement(locator);
+      return true;
+    } catch (WebDriverException e) {
       return false;
     }
   }

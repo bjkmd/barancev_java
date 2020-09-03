@@ -2,11 +2,11 @@ package bjk.learn.java.barancev.helpers;
 
 import bjk.learn.java.barancev.dataObjects.UserData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 
 public class UserActionsHelper extends HelperBase {
+
     public UserActionsHelper(WebDriver driver) {
         super(driver);
     }
@@ -48,12 +48,4 @@ public class UserActionsHelper extends HelperBase {
         type(By.name("account.country"), userData.getCountry());
     }
 
-    private boolean isElementPresent(By locator) {
-        try {
-            driver.findElement(By.name("username"));
-            return true;
-        } catch (WebDriverException e) {
-            return false;
-        }
-    }
 }
