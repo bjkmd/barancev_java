@@ -18,7 +18,11 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void openMainPage() {
-        click(By.id("LogoContent"));
+        boolean isOnTheSamePage = isElementPresent(By.id("Sidebar"))
+                && isElementPresent(By.id("MainImage"));
+        if (!isOnTheSamePage) {
+            click(By.id("LogoContent"));
+        }
     }
 
     public void openPetStore() {
