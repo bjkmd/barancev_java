@@ -33,5 +33,7 @@ public class NavigationHelper extends HelperBase {
         click(By.linkText("Register Now!"));
     }
 
-
+    public void openMyAccountPage() {
+        click(By.linkText("My Account"));
+    }
 }

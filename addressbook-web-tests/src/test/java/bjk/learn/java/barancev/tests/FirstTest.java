@@ -1,21 +1,14 @@
 package bjk.learn.java.barancev.tests;
 
-import bjk.learn.java.barancev.dataObjects.UserDataBuilder;
-import bjk.learn.java.barancev.helpers.NavigationHelper;
 import bjk.learn.java.barancev.dataObjects.UserData;
-import bjk.learn.java.barancev.helpers.UserActionsHelper;
+import bjk.learn.java.barancev.dataObjects.userDataBuilder;
 import org.testng.annotations.Test;
 
 public class FirstTest extends TestBase {
 
 
-    private NavigationHelper navigate;
-    private UserActionsHelper userActions;
-
     @Test
     public void testOpenAllCategories() {
-
-        navigate = app.getNavigationHelper();
 
         navigate.openMainPage();
         navigate.openCategory("FISH");
@@ -26,13 +19,10 @@ public class FirstTest extends TestBase {
 
     }
 
-
     @Test
     public void testRegistration() {
 
-        navigate = app.getNavigationHelper();
-        userActions = app.getUserActionsHelper();
-        UserData userData = new UserDataBuilder().
+        UserData userData = new userDataBuilder().
                 setName("name3").
                 setPassword("password").
                 createUserData();
@@ -43,5 +33,43 @@ public class FirstTest extends TestBase {
 
     }
 
+    @Test
+    public void testLogin() {
 
+        navigate.openMainPage();
+        navigate.openLoginPage();
+
+        UserData userData = new userDataBuilder().
+                setName("name3").
+                setPassword("password").
+                createUserData();
+
+        userActions.fillLoginForm(userData);
+
+    }
+
+    @Test
+    public void testEditUser() {
+
+        UserData userData = new userDataBuilder().
+                setName("name3").
+                setPassword("password").
+                createUserData();
+
+        UserData userDataEdited = new userDataBuilder().
+                setName("name3").
+                setPassword("password").
+                setAddr1("Addr1 EDITED").
+                createUserData();
+
+        navigate.openMainPage();
+        navigate.openLoginPage();
+        userActions.fillLoginForm(userData);
+        navigate.openMyAccountPage();
+
+        userActions.fillUserProfileForm(userDataEdited);
+
+
+
+    }
 }

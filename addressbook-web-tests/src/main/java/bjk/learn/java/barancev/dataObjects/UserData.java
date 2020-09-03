@@ -14,20 +14,40 @@ public class UserData {
     private final String zip;
     private final String country;
 
-    public UserData(String name, String password){
+    public UserData(String name, String password,
+                    String first,
+                    String last,
+                    String email,
+                    String phone,
+                    String addr1,
+                    String addr2,
+                    String city,
+                    String state,
+                    String zip,
+                    String country){
         this.name = name;
         this.password = password;
+        this.first = first;
+        this.last = last;
+        this.email = email;
+        this.phone = phone;
+        this.addr1 = addr1;
+        this.addr2 = addr2;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
+        this.country = country;
 
-        this.first = "First";
-        this.last = "Last";
-        this.email = "a@b.c";
-        this.phone = "1234567";
-        this.addr1 = "addr1";
-        this.addr2 = "addr2";
-        this.city = "City";
-        this.state = "State";
-        this.zip = "1212";
-        this.country = "Country";
+//        this.first = "First";
+//        this.last = "Last";
+//        this.email = "a@b.c";
+//        this.phone = "1234567";
+//        this.addr1 = "addr1";
+//        this.addr2 = "addr2";
+//        this.city = "City";
+//        this.state = "State";
+//        this.zip = "1212";
+//        this.country = "Country";
     }
 
     public String getName() {
