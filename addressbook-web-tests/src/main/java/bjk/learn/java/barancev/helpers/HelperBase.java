@@ -1,6 +1,7 @@
 package bjk.learn.java.barancev.helpers;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 
 public class HelperBase {
@@ -29,7 +30,7 @@ public class HelperBase {
     try {
       driver.switchTo().alert();
       return true;
-    } catch (Exception e) {
+    } catch (NoAlertPresentException e) {
       return false;
     }
   }
