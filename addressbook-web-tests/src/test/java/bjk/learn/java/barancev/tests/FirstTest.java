@@ -1,9 +1,12 @@
 package bjk.learn.java.barancev.tests;
 
+import bjk.learn.java.barancev.dataObjects.ProductInCartItem;
 import bjk.learn.java.barancev.dataObjects.UserData;
 import bjk.learn.java.barancev.dataObjects.userDataBuilder;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class FirstTest extends TestBase {
 
@@ -73,11 +76,25 @@ public class FirstTest extends TestBase {
     }
 
     @Test
-    public void testCatalog() {
+    public void testAddToCart() {
 
         navigate.openMainPage();
         navigate.openCategory("FISH");
-        Assert.assertEquals(userActions.countProducts(),4);
+        Assert.assertEquals(userActions.getProductsList().size(),4);
+        navigate.openPDPbyNumber(2);
+        userActions.addToCartByNumber(1);
+        navigate.openCart();
+        List<ProductInCartItem> before = userActions.getProductsInCartList();
+
+        navigate.openCategory("DOGS");
+        navigate.openPDPbyNumber(2);
+        userActions.addToCartByNumber(1);
+        navigate.openCart();
+        List<ProductInCartItem> after = userActions.getProductsInCartList();
+
+        Assert.assertEquals(before.size()+1,after.size());
+        after.remove(after.size()-1);
+        Assert.assertEquals(before,after);
 
     }
 }

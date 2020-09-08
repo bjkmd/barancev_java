@@ -40,4 +40,16 @@ public class NavigationHelper extends HelperBase {
     public void openMyAccountPage() {
         click(By.linkText("My Account"));
     }
+
+    public void openPDPbyNumber(int numberInTheList){
+        openPDP(numberInTheList);
+    }
+
+    private void openPDP(int numberInTheList) {
+        driver.findElements(byPartialURI("productId")).get(numberInTheList).click();
+    }
+
+    public void openCart() {
+        driver.findElement(byPartialURI("viewCart")).click();
+    }
 }
