@@ -16,6 +16,10 @@ public class HelperBase {
     driver.findElement(locator).click();
   }
 
+  public By byPartialURI(String partialURI){
+    return By.cssSelector("a[href*='" + partialURI + "']");
+  }
+
   public void type(By locator, String text) {
     if (text != null) {
       String existingText = driver.findElement(locator).getAttribute("value");

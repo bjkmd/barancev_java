@@ -2,6 +2,7 @@ package bjk.learn.java.barancev.tests;
 
 import bjk.learn.java.barancev.dataObjects.UserData;
 import bjk.learn.java.barancev.dataObjects.userDataBuilder;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class FirstTest extends TestBase {
@@ -69,7 +70,14 @@ public class FirstTest extends TestBase {
 
         userActions.fillUserProfileForm(userDataEdited);
 
+    }
 
+    @Test
+    public void testCatalog() {
+
+        navigate.openMainPage();
+        navigate.openCategory("FISH");
+        Assert.assertEquals(userActions.countProducts(),4);
 
     }
 }

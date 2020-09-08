@@ -48,4 +48,8 @@ public class UserActionsHelper extends HelperBase {
         type(By.name("account.country"), userData.getCountry());
     }
 
+    public int countProducts(){
+       return driver.findElements(byPartialURI("productId")).size();
+    }
+
 }
