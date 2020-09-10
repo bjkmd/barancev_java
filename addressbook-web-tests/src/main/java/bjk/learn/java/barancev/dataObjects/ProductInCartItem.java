@@ -11,6 +11,41 @@ public class ProductInCartItem extends ProductItem {
   private boolean inStock;
   private int quantity;
   private String price;
+  private String totalCost;
+
+  public ProductInCartItem(String productName,
+                           String productId,
+                           String itemId,
+                           String description,
+                           boolean inStock,
+                           int quantity,
+                           String price,
+                           String totalCost) {
+    super(productName, productId, itemId, description, price);
+    this.productName = productName;
+    this.productId = productId;
+    this.itemId = itemId;
+    this.description = description;
+    this.inStock = inStock;
+    this.quantity = quantity;
+    this.price = price;
+    this.totalCost = totalCost;
+  }
+
+  public String getTotalCost() {
+    return totalCost;
+  }
+
+  public int getQuantity() {
+    return quantity;
+  }
+
+  public String getPrice() {
+    return price;
+  }
+  public Double getPriceInDoubleType() {
+    return Double.parseDouble(price.substring(1));
+  }
 
   @Override
   public String toString() {
@@ -34,26 +69,5 @@ public class ProductInCartItem extends ProductItem {
   @Override
   public int hashCode() {
     return Objects.hash(productId, itemId, price);
-  }
-
-  private String totalCost;
-
-  public ProductInCartItem(String productName,
-                           String productId,
-                           String itemId,
-                           String description,
-                           boolean inStock,
-                           int quantity,
-                           String price,
-                           String totalCost) {
-    super(productName, productId, itemId, description, price);
-    this.productName = productName;
-    this.productId = productId;
-    this.itemId = itemId;
-    this.description = description;
-    this.inStock = inStock;
-    this.quantity = quantity;
-    this.price = price;
-    this.totalCost = totalCost;
   }
 }
