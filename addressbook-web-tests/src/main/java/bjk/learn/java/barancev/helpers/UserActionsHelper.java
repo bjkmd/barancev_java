@@ -61,7 +61,8 @@ public class UserActionsHelper extends HelperBase {
     }
 
     public ArrayList<Product> getProductsList() {
-        List<Product> products= new ArrayList<>();
+        ArrayList<Product> products;
+        products = new ArrayList<>();
         List<WebElement> elements= driver.findElements(By.xpath("//*[tr]/*[td]/*[a]/.."));
         for (WebElement element:
              elements) {
@@ -71,7 +72,7 @@ public class UserActionsHelper extends HelperBase {
             products.add(product);
         }
 
-        return (ArrayList<Product>) products;
+        return products;
 
 
     }
@@ -82,18 +83,22 @@ public class UserActionsHelper extends HelperBase {
 
     }
 
+    public void removeFromCartByNumber(int itemNumber) {
+        driver.findElements(By.linkText("Remove")).get(itemNumber).click();
+    }
+
     public List<ProductInCartItem> getProductsInCartList() {
         List<ProductInCartItem> productInCartItems = new ArrayList<>();
         List<WebElement> elements= driver.findElements(By.xpath("//*[tr]/*[td]/*[a]/.."));
         for (WebElement element:
                 elements) {
-            String itemId = element.findElement(By.xpath("//td[1]/a")).getText();
-            String productId = element.findElement(By.xpath("//td[2]")).getText();
-            String description = element.findElement(By.xpath("//td[3]")).getText();
-            boolean inStock = Boolean.parseBoolean(element.findElement(By.xpath("//td[4]")).getText());
-            int quantity = Integer.parseInt(element.findElement(By.xpath("//td[5]/input")).getAttribute("value"));
-            String price = element.findElement(By.xpath("//td[6]")).getText();
-            String totalCost = element.findElement(By.xpath("//td[7]")).getText();
+            String itemId = element.findElement(By.xpath(".//td[1]/a")).getText();
+            String productId = element.findElement(By.xpath(".//td[2]")).getText();
+            String description = element.findElement(By.xpath(".//td[3]")).getText();
+            boolean inStock = Boolean.parseBoolean(element.findElement(By.xpath(".//td[4]")).getText());
+            int quantity = Integer.parseInt(element.findElement(By.xpath(".//td[5]/input")).getAttribute("value"));
+            String price = element.findElement(By.xpath(".//td[6]")).getText();
+            String totalCost = element.findElement(By.xpath(".//td[7]")).getText();
 
 
             ProductInCartItem productInCartItem = new ProductInCartItem(null,
@@ -109,4 +114,5 @@ public class UserActionsHelper extends HelperBase {
 
         return productInCartItems;
     }
+
 }
