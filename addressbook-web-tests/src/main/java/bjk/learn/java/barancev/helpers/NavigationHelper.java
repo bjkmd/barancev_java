@@ -13,11 +13,11 @@ public class NavigationHelper extends HelperBase {
         driver.get(url);
     }
 
-    public void openCategory(final String category) {
+    public void category(final String category) {
         click(By.cssSelector("a[href*='" + category + "']"));
     }
 
-    public void openMainPage() {
+    public void mainPage() {
         boolean isOnTheSamePage = isElementPresent(By.id("Sidebar"))
                 && isElementPresent(By.id("MainImage"));
         if (!isOnTheSamePage) {
@@ -41,7 +41,7 @@ public class NavigationHelper extends HelperBase {
         click(By.linkText("My Account"));
     }
 
-    public void openPDPbyNumber(int numberInTheList){
+    public void pdpByNumber(int numberInTheList){
         openPDP(numberInTheList);
     }
 
@@ -49,7 +49,7 @@ public class NavigationHelper extends HelperBase {
         driver.findElements(byPartialURI("productId")).get(numberInTheList).click();
     }
 
-    public void openCart() {
+    public void cart() {
         driver.findElement(byPartialURI("viewCart")).click();
     }
 }

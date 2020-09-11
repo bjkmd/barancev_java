@@ -116,4 +116,17 @@ public class UserActionsHelper extends HelperBase {
     String stringPrice =  driver.findElement(By.xpath("//td/input[@type=\"submit\"]/..")).getText();
     return Double.parseDouble(stringPrice.substring(12));
   }
+
+  public boolean isCartEmpty() {
+    return driver.findElements(By.linkText("Remove")).isEmpty();
+  }
+
+  public void clearCart() {
+    while (!isCartEmpty()) removeFromCartByNumber(0);
+  }
+
+
+
+
+
 }

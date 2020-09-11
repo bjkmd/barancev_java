@@ -1,5 +1,6 @@
 package bjk.learn.java.barancev.appmanager;
 
+import bjk.learn.java.barancev.helpers.CompositeActionsHelper;
 import bjk.learn.java.barancev.helpers.NavigationHelper;
 import bjk.learn.java.barancev.helpers.UserActionsHelper;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -16,6 +17,7 @@ public class ApplicationManager {
 
     NavigationHelper navigationHelper;
     UserActionsHelper userActionsHelper;
+    CompositeActionsHelper compositeActionsHelper;
     private final String browser;
 
     public ApplicationManager(String browser) {
@@ -27,6 +29,9 @@ public class ApplicationManager {
     }
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
+    }
+    public CompositeActionsHelper getCompositeActionsHelper() {
+        return compositeActionsHelper;
     }
 
     public void init() {
@@ -41,6 +46,7 @@ public class ApplicationManager {
 
         navigationHelper = new NavigationHelper(driver);
         userActionsHelper = new UserActionsHelper(driver);
+        compositeActionsHelper = new CompositeActionsHelper(driver);
 
         navigationHelper.openPageByURL("http://localhost:8099/");
 

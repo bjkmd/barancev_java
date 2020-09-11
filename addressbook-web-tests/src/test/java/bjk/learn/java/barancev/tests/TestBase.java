@@ -1,26 +1,29 @@
 package bjk.learn.java.barancev.tests;
 
 import bjk.learn.java.barancev.appmanager.ApplicationManager;
+import bjk.learn.java.barancev.helpers.CompositeActionsHelper;
 import bjk.learn.java.barancev.helpers.NavigationHelper;
 import bjk.learn.java.barancev.helpers.UserActionsHelper;
 import org.openqa.selenium.remote.BrowserType;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 
-public class TestBase {
+public abstract class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
-    protected NavigationHelper navigate;
-    protected UserActionsHelper userActions;
+    protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME);
+    protected NavigationHelper goTo;
+    protected UserActionsHelper user;
+    protected CompositeActionsHelper action;
 
-    @BeforeMethod
+    @BeforeSuite
     public void setUp() {
         app.init();
-        userActions = app.getUserActionsHelper();
-        navigate = app.getNavigationHelper();
+        user = app.getUserActionsHelper();
+        goTo = app.getNavigationHelper();
+        action = app.getCompositeActionsHelper();
     }
 
-    @AfterMethod
+    @AfterSuite
     public void tearDown() {
         app.stop();
     }
