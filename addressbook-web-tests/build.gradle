@@ -21,4 +21,5 @@ dependencies {
     compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.0.0-alpha-6'
     compile "io.github.bonigarcia:webdrivermanager:4.2.0"
     implementation 'org.testng:testng:7.3.0'
+    compile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'
 }

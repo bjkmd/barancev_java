@@ -8,7 +8,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class UserActionsHelper extends HelperBase {
 
@@ -84,8 +86,12 @@ public class UserActionsHelper extends HelperBase {
     driver.findElements(By.linkText("Remove")).get(itemNumber).click();
   }
 
-  public List<ProductInCartItem> getProductsInCartList() {
-    List<ProductInCartItem> productInCartItems = new ArrayList<>();
+  public void removeFromCart(ProductInCartItem toRemove) {
+    driver.findElement(By.xpath("//td[text()='"+toRemove.getProductId()+"']/..//*[text()='Remove']")).click();
+  }
+
+  public Set<ProductInCartItem> getProductsInCart() {
+    Set<ProductInCartItem> productInCartItems = new HashSet<>();
     List<WebElement> elements = driver.findElements(By.xpath("//*[tr]/*[td]/*[a]/.."));
     for (WebElement element :
             elements) {
@@ -124,9 +130,6 @@ public class UserActionsHelper extends HelperBase {
   public void clearCart() {
     while (!isCartEmpty()) removeFromCartByNumber(0);
   }
-
-
-
 
 
 }

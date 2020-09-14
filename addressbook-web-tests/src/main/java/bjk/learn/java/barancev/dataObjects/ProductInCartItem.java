@@ -12,7 +12,6 @@ public class ProductInCartItem extends ProductItem {
   private int quantity;
   private String price;
   private String totalCost;
-
   public ProductInCartItem(String productName,
                            String productId,
                            String itemId,
@@ -32,6 +31,10 @@ public class ProductInCartItem extends ProductItem {
     this.totalCost = totalCost;
   }
 
+  public String getProductId() {
+    return productId;
+  }
+
   public String getTotalCost() {
     return totalCost;
   }
@@ -43,6 +46,7 @@ public class ProductInCartItem extends ProductItem {
   public String getPrice() {
     return price;
   }
+
   public Double getPriceInDoubleType() {
     return Double.parseDouble(price.substring(1));
   }

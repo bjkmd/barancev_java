@@ -50,6 +50,11 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void cart() {
-        driver.findElement(byPartialURI("viewCart")).click();
+//        driver.findElement(byPartialURI("viewCart")).click();
+
+        boolean isOnTheSamePage = isElementPresent(By.id("Cart"));
+        if (!isOnTheSamePage) {
+            driver.findElement(byPartialURI("viewCart")).click();
+        }
     }
 }

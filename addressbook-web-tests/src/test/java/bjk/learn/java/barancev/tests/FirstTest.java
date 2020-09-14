@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
+import java.util.Set;
 
 public class FirstTest extends TestBase {
 
@@ -84,16 +85,17 @@ public class FirstTest extends TestBase {
         goTo.pdpByNumber(2);
         user.addToCartByNumber(1);
         goTo.cart();
-        List<ProductInCartItem> before = user.getProductsInCartList();
+        Set<ProductInCartItem> before = user.getProductsInCart();
 
         goTo.category("DOGS");
         goTo.pdpByNumber(2);
         user.addToCartByNumber(1);
         goTo.cart();
-        List<ProductInCartItem> after = user.getProductsInCartList();
+        Set<ProductInCartItem> after = user.getProductsInCart();
 
         Assert.assertEquals(before.size()+1,after.size());
-        after.remove(after.size()-1);
+        ProductInCartItem toRemove = after.iterator().next();
+        after.remove(toRemove);
         Assert.assertEquals(before,after);
 
     }
