@@ -2,11 +2,10 @@ package bjk.learn.java.barancev.tests;
 
 import bjk.learn.java.barancev.dataObjects.ProductInCartItem;
 import bjk.learn.java.barancev.dataObjects.UserData;
-import bjk.learn.java.barancev.dataObjects.userDataBuilder;
+import bjk.learn.java.barancev.dataObjects.UserDataBuilder;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.List;
 import java.util.Set;
 
 public class FirstTest extends TestBase {
@@ -27,7 +26,7 @@ public class FirstTest extends TestBase {
     @Test
     public void testRegistration() {
 
-        UserData userData = new userDataBuilder().
+        UserData userData = new UserDataBuilder().
                 setName("name3").
                 setPassword("password").
                 createUserData();
@@ -44,7 +43,7 @@ public class FirstTest extends TestBase {
         goTo.mainPage();
         goTo.openLoginPage();
 
-        UserData userData = new userDataBuilder().
+        UserData userData = new UserDataBuilder().
                 setName("name3").
                 setPassword("password").
                 createUserData();
@@ -56,12 +55,12 @@ public class FirstTest extends TestBase {
     @Test
     public void testEditUser() {
 
-        UserData userData = new userDataBuilder().
+        UserData userData = new UserDataBuilder().
                 setName("name3").
                 setPassword("password").
                 createUserData();
 
-        UserData userDataEdited = new userDataBuilder().
+        UserData userDataEdited = new UserDataBuilder().
                 setName("name3").
                 setPassword("password").
                 setAddr1("Addr1 EDITED").

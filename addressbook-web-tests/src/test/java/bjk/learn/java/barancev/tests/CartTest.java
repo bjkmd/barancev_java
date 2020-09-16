@@ -1,10 +1,13 @@
 package bjk.learn.java.barancev.tests;
 
+import bjk.learn.java.barancev.dataObjects.CartItems;
 import bjk.learn.java.barancev.dataObjects.ProductInCartItem;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -24,39 +27,41 @@ public class CartTest extends TestBase {
   @Test
   public void testAddToCart() {
 
-    Set<ProductInCartItem> before;
+    CartItems before;
 
     action.fillInCart();
     goTo.cart();
     before = user.getProductsInCart();
     action.addToCartFirstProductFromCategory("BIRDS");
     goTo.cart();
-    Set<ProductInCartItem> after = user.getProductsInCart();
+    CartItems after = user.getProductsInCart();
 
     assertThat(after.size(),equalTo(before.size()+1));
     ProductInCartItem toRemove = after.iterator().next();
-    after.remove(toRemove);
-    assertThat(after, equalTo(before));
+    assertThat(after.without(toRemove), equalTo(before));
 
   }
 
   @Test
   public void testRemoveFromCart() {
 
-    Set<ProductInCartItem> before;
+    CartItems before;
 
     action.fillInCart();
     goTo.cart();
     before = user.getProductsInCart();
     ProductInCartItem toRemove = before.iterator().next();
 
+    System.out.println(before.stream().
+            map(ProductInCartItem::getProductId).
+            collect(Collectors.joining("\n")));
+
     user.removeFromCart(toRemove);
     goTo.cart();
     Set<ProductInCartItem> after = user.getProductsInCart();
 
     assertThat(after.size(),equalTo(before.size()-1));
-    before.remove(toRemove);
-    assertThat(after, equalTo(before));
+    assertThat(after, equalTo(before.without(toRemove)));
 
   }
 
@@ -77,16 +82,10 @@ public class CartTest extends TestBase {
 
   @Test
   public void testLambdaTotalPrice() {
-    Set<ProductInCartItem> productInCartItems;
-
-    action.fillInCart();
     action.fillInCart();
     goTo.cart();
-    productInCartItems = user.getProductsInCart();
-    double quantity = productInCartItems.stream().mapToDouble(ProductInCartItem::getQuantity).sum();
-    double totalPriceExpected = productInCartItems.stream().mapToDouble(productInCartItem->Double.parseDouble(productInCartItem.getTotalCost().substring(1))).sum();
+    double totalPriceExpected = user.getProductsInCart().stream().mapToDouble(productInCartItem->Double.parseDouble(productInCartItem.getTotalCost().substring(1))).sum();
     double totalPriceActual = user.getTotalPriceInCart();
-//    Assert.assertEquals(totalPriceActual,totalPriceExpected);
     assertThat(totalPriceExpected,equalTo(totalPriceActual));
 
   }
@@ -103,8 +102,6 @@ public class CartTest extends TestBase {
     action.addToCartFirstProductFromCategory("FISH");
     goTo.cart();
     Set<ProductInCartItem> after = user.getProductsInCart();
-
-//    Assert.assertEquals(before,after);
     assertThat(after, equalTo(before));
   }
 

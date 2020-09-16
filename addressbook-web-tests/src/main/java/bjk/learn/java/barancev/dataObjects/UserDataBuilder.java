@@ -1,6 +1,6 @@
 package bjk.learn.java.barancev.dataObjects;
 
-public class userDataBuilder {
+public class UserDataBuilder {
   private String name;
   private String password;
   private String first;
@@ -14,8 +14,9 @@ public class userDataBuilder {
   private String zip;
   private String country;
 
-  public userDataBuilder() {
-
+  public UserDataBuilder() {
+        this.name = "Name";
+        this.password = "password";
         this.first = "First";
         this.last = "Last";
         this.email = "a@b.c";
@@ -28,62 +29,62 @@ public class userDataBuilder {
         this.country = "Country";
   }
 
-  public userDataBuilder setName(String name) {
+  public UserDataBuilder setName(String name) {
     this.name = name;
     return this;
   }
 
-  public userDataBuilder setPassword(String password) {
+  public UserDataBuilder setPassword(String password) {
     this.password = password;
     return this;
   }
 
-  public userDataBuilder setFirst(String first) {
+  public UserDataBuilder setFirst(String first) {
     this.first = first;
     return this;
   }
 
-  public userDataBuilder setLast(String last) {
+  public UserDataBuilder setLast(String last) {
     this.last = last;
     return this;
   }
 
-  public userDataBuilder setEmail(String email) {
+  public UserDataBuilder setEmail(String email) {
     this.email = email;
     return this;
   }
 
-  public userDataBuilder setPhone(String phone) {
+  public UserDataBuilder setPhone(String phone) {
     this.phone = phone;
     return this;
   }
 
-  public userDataBuilder setAddr1(String addr1) {
+  public UserDataBuilder setAddr1(String addr1) {
     this.addr1 = addr1;
     return this;
   }
 
-  public userDataBuilder setAddr2(String addr2) {
+  public UserDataBuilder setAddr2(String addr2) {
     this.addr2 = addr2;
     return this;
   }
 
-  public userDataBuilder setCity(String city) {
+  public UserDataBuilder setCity(String city) {
     this.city = city;
     return this;
   }
 
-  public userDataBuilder setState(String state) {
+  public UserDataBuilder setState(String state) {
     this.state = state;
     return this;
   }
 
-  public userDataBuilder setZip(String zip) {
+  public UserDataBuilder setZip(String zip) {
     this.zip = zip;
     return this;
   }
 
-  public userDataBuilder setCountry(String country) {
+  public UserDataBuilder setCountry(String country) {
     this.country = country;
     return this;
   }

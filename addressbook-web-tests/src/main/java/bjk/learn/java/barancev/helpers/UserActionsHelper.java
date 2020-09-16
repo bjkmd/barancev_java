@@ -1,16 +1,12 @@
 package bjk.learn.java.barancev.helpers;
 
-import bjk.learn.java.barancev.dataObjects.Product;
-import bjk.learn.java.barancev.dataObjects.ProductInCartItem;
-import bjk.learn.java.barancev.dataObjects.UserData;
+import bjk.learn.java.barancev.dataObjects.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class UserActionsHelper extends HelperBase {
 
@@ -90,8 +86,8 @@ public class UserActionsHelper extends HelperBase {
     driver.findElement(By.xpath("//td[text()='"+toRemove.getProductId()+"']/..//*[text()='Remove']")).click();
   }
 
-  public Set<ProductInCartItem> getProductsInCart() {
-    Set<ProductInCartItem> productInCartItems = new HashSet<>();
+  public CartItems getProductsInCart() {
+    CartItems productInCartItems = new CartItems();
     List<WebElement> elements = driver.findElements(By.xpath("//*[tr]/*[td]/*[a]/.."));
     for (WebElement element :
             elements) {
@@ -103,16 +99,16 @@ public class UserActionsHelper extends HelperBase {
       String price = element.findElement(By.xpath(".//td[6]")).getText();
       String totalCost = element.findElement(By.xpath(".//td[7]")).getText();
 
-      ProductInCartItem productInCartItem = new ProductInCartItem(null,
-              productId,
-              itemId,
-              description,
-              inStock,
-              quantity,
-              price,
-              totalCost);
-
-      productInCartItems.add(productInCartItem);
+      productInCartItems.add(new ProductInCartItemBuilder().
+              setProductName(null).
+              setProductId(productId).
+              setItemId(itemId).
+              setDescription(description).
+              setInStock(inStock).
+              setQuantity(quantity).
+              setPrice(price).
+              setTotalCost(totalCost).
+              createProductInCartItem());
     }
 
     return productInCartItems;
