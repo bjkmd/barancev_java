@@ -3,6 +3,7 @@ package bjk.learn.java.barancev.tests;
 import bjk.learn.java.barancev.dataObjects.ProductInCartItem;
 import bjk.learn.java.barancev.dataObjects.UserData;
 import bjk.learn.java.barancev.dataObjects.UserDataBuilder;
+import com.thoughtworks.xstream.XStream;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -12,11 +13,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class FirstTest extends TestBase {
 
     @DataProvider
-    public Iterator<Object []> userData() throws IOException {
+    public Iterator<Object []> userDataCsv() throws IOException {
         List<Object []> list = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/users.csv")));
         String line = reader.readLine();
@@ -32,6 +34,24 @@ public class FirstTest extends TestBase {
         return list.iterator();
     }
 
+    @DataProvider
+    public Iterator<Object []> userDataXml() throws IOException {
+        List<Object []> list;
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/users.xml")));
+        String line = reader.readLine();
+        StringBuilder xml = new StringBuilder();
+        while (line!=null) {
+            xml.append(line);
+            line = reader.readLine();
+        }
+        XStream xStream = new XStream();
+        xStream.processAnnotations(UserData.class);
+        List<UserData> userDataList= (List<UserData>) xStream.fromXML(xml.toString());
+        list = userDataList.stream().map(userData -> new Object[]{userData}).collect(Collectors.toList());
+        return list.iterator();
+
+    }
+
     @Test
     public void testOpenAllCategories() {
 
@@ -44,7 +64,7 @@ public class FirstTest extends TestBase {
 
     }
 
-    @Test(dataProvider = "userData")
+    @Test(dataProvider = "userDataXml")
     public void testRegistration(UserData userData) {
 
         goTo.openLoginPage();
