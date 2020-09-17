@@ -5,6 +5,8 @@ import bjk.learn.java.barancev.dataObjects.UserDataBuilder;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 
 import java.io.File;
@@ -41,16 +43,32 @@ public class UserDataGenerator {
 
   private void run() throws IOException {
     List<UserData> users = generateUsers(count);
-    if (dataFormat.toLowerCase().equals("csv"))
-      saveAsCsv(users,new File(fileName));
-    else if (dataFormat.toLowerCase().equals("xml"))
-      saveAsXML(users,new File(fileName));
-    else System.out.println("Unknown format: "+dataFormat);
+    switch (dataFormat.toLowerCase()) {
+      case "csv":
+        saveAsCsv(users, new File(fileName));
+        break;
+      case "xml":
+        saveAsXML(users, new File(fileName));
+        break;
+      case "json":
+        saveAsJson(users, new File(fileName));
+        break;
+      default:
+        System.out.println("Unknown format: " + dataFormat);
+        break;
+    }
 
   }
 
-  private void saveAsXML(List<UserData> users, File file) throws IOException {
+  private void saveAsJson(List<UserData> users, File file) throws IOException {
     Writer  writer = new FileWriter(file);
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    writer.write( gson.toJson(users));
+    writer.close();
+  }
+
+  private void saveAsXML(List<UserData> users, File file) throws IOException {
+    Writer writer = new FileWriter(file);
     XStream xstream = new XStream();
     xstream.processAnnotations(UserData.class);
     writer.write(xstream.toXML(users));
@@ -58,7 +76,7 @@ public class UserDataGenerator {
 
   }
 
-  private  void saveAsCsv(List<UserData> users, File file) throws IOException {
+  private void saveAsCsv(List<UserData> users, File file) throws IOException {
     Writer  writer = new FileWriter(file);
     for(UserData user : users){
       writer.write(String.format("%s;%s;%s\n",

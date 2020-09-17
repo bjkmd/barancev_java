@@ -3,6 +3,8 @@ package bjk.learn.java.barancev.tests;
 import bjk.learn.java.barancev.dataObjects.ProductInCartItem;
 import bjk.learn.java.barancev.dataObjects.UserData;
 import bjk.learn.java.barancev.dataObjects.UserDataBuilder;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -47,8 +49,23 @@ public class FirstTest extends TestBase {
         XStream xStream = new XStream();
         xStream.processAnnotations(UserData.class);
         List<UserData> userDataList= (List<UserData>) xStream.fromXML(xml.toString());
-        list = userDataList.stream().map(userData -> new Object[]{userData}).collect(Collectors.toList());
-        return list.iterator();
+        return userDataList.stream().map(userData -> new Object[]{userData}).collect(Collectors.toList()).iterator();
+
+    }
+
+    @DataProvider
+    public Iterator<Object []> userDataJson() throws IOException {
+        List<Object []> list;
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/users.json")));
+        String line = reader.readLine();
+        StringBuilder json = new StringBuilder();
+        while (line!=null) {
+            json.append(line);
+            line = reader.readLine();
+        }
+        Gson gson = new Gson();
+        List<UserData> userDataList= gson.fromJson(json.toString(),new TypeToken<List<UserData>>(){}.getType());
+        return userDataList.stream().map(userData -> new Object[]{userData}).collect(Collectors.toList()).iterator();
 
     }
 
@@ -64,7 +81,7 @@ public class FirstTest extends TestBase {
 
     }
 
-    @Test(dataProvider = "userDataXml")
+    @Test(dataProvider = "userDataJson")
     public void testRegistration(UserData userData) {
 
         goTo.openLoginPage();
