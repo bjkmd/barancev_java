@@ -1,0 +1,1 @@
+docker run -d --rm -p 8099:8080 jloisel/jpetstore6:latest

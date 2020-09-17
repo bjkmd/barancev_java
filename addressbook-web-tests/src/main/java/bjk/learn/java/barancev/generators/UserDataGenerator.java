@@ -18,20 +18,20 @@ import java.util.List;
 
 public class UserDataGenerator {
 
-  @Parameter(names = "-c",description = "Number of users to generate")
+  @Parameter(names = "-c", description = "Number of users to generate")
   public int count;
 
-  @Parameter(names = "-f",description = "Target file")
+  @Parameter(names = "-f", description = "Target file")
   public String fileName;
 
-  @Parameter(names = "-d",description = "Data format")
+  @Parameter(names = "-d", description = "Data format")
   public String dataFormat;
 
 
   public static void main(String[] args) throws IOException {
 
     UserDataGenerator userDataGenerator = new UserDataGenerator();
-    JCommander jCommander = new  JCommander(userDataGenerator) ;
+    JCommander jCommander = new JCommander(userDataGenerator);
     try {
       jCommander.parse(args);
     } catch (ParameterException e) {
@@ -61,38 +61,38 @@ public class UserDataGenerator {
   }
 
   private void saveAsJson(List<UserData> users, File file) throws IOException {
-    Writer  writer = new FileWriter(file);
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    writer.write( gson.toJson(users));
-    writer.close();
+    try (Writer writer = new FileWriter(file)) {
+      writer.write(gson.toJson(users));
+    }
   }
 
   private void saveAsXML(List<UserData> users, File file) throws IOException {
-    Writer writer = new FileWriter(file);
     XStream xstream = new XStream();
     xstream.processAnnotations(UserData.class);
-    writer.write(xstream.toXML(users));
-    writer.close();
+    try (Writer writer = new FileWriter(file)) {
+      writer.write(xstream.toXML(users));
+    }
 
   }
 
   private void saveAsCsv(List<UserData> users, File file) throws IOException {
-    Writer  writer = new FileWriter(file);
-    for(UserData user : users){
-      writer.write(String.format("%s;%s;%s\n",
-              user.getName(),
-              user.getPassword(),
-              user.getEmail()));
+    try (Writer writer = new FileWriter(file)) {
+      for (UserData user : users) {
+        writer.write(String.format("%s;%s;%s\n",
+                user.getName(),
+                user.getPassword(),
+                user.getEmail()));
 
+      }
     }
-    writer.close();
   }
 
-  private  List<UserData> generateUsers(int count) {
+  private List<UserData> generateUsers(int count) {
     List<UserData> userData = new ArrayList<>();
     for (int i = 0; i < count; i++) {
       userData.add(new UserDataBuilder().
-              setName("TestName"+i).
+              setName("TestName" + i).
               createUserData());
     }
     return userData;
