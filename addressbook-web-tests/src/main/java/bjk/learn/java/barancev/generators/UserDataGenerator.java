@@ -5,6 +5,7 @@ import bjk.learn.java.barancev.dataObjects.UserDataBuilder;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.thoughtworks.xstream.XStream;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -20,6 +21,9 @@ public class UserDataGenerator {
 
   @Parameter(names = "-f",description = "Target file")
   public String fileName;
+
+  @Parameter(names = "-d",description = "Data format")
+  public String dataFormat;
 
 
   public static void main(String[] args) throws IOException {
@@ -37,10 +41,24 @@ public class UserDataGenerator {
 
   private void run() throws IOException {
     List<UserData> users = generateUsers(count);
-    save(users,new File(fileName));
+    if (dataFormat.toLowerCase().equals("csv"))
+      saveAsCsv(users,new File(fileName));
+    else if (dataFormat.toLowerCase().equals("xml"))
+      saveAsXML(users,new File(fileName));
+    else System.out.println("Unknown format: "+dataFormat);
+
   }
 
-  private  void save(List<UserData> users, File file) throws IOException {
+  private void saveAsXML(List<UserData> users, File file) throws IOException {
+    Writer  writer = new FileWriter(file);
+    XStream xstream = new XStream();
+    xstream.processAnnotations(UserData.class);
+    writer.write(xstream.toXML(users));
+    writer.close();
+
+  }
+
+  private  void saveAsCsv(List<UserData> users, File file) throws IOException {
     Writer  writer = new FileWriter(file);
     for(UserData user : users){
       writer.write(String.format("%s;%s;%s\n",
@@ -53,7 +71,7 @@ public class UserDataGenerator {
   }
 
   private  List<UserData> generateUsers(int count) {
-    List<UserData> userData = new ArrayList<UserData>();
+    List<UserData> userData = new ArrayList<>();
     for (int i = 0; i < count; i++) {
       userData.add(new UserDataBuilder().
               setName("TestName"+i).
