@@ -23,4 +23,7 @@ dependencies {
     implementation 'org.testng:testng:7.3.0'
     compile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'
     compile "com.beust:jcommander:1.71"
+    compile group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.13'
+
+
 }

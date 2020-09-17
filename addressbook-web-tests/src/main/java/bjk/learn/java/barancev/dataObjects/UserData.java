@@ -1,5 +1,8 @@
 package bjk.learn.java.barancev.dataObjects;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+
+@XStreamAlias("user")
 public class UserData {
     private final String name;
     private final String password;
@@ -12,6 +15,15 @@ public class UserData {
     private final String city;
     private final String state;
     private final String zip;
+
+    @Override
+    public String toString() {
+        return "UserData{" +
+                "name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     private final String country;
 
     public UserData(String name, String password,

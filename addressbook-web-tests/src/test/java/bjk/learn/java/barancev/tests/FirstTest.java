@@ -4,12 +4,33 @@ import bjk.learn.java.barancev.dataObjects.ProductInCartItem;
 import bjk.learn.java.barancev.dataObjects.UserData;
 import bjk.learn.java.barancev.dataObjects.UserDataBuilder;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 public class FirstTest extends TestBase {
 
+    @DataProvider
+    public Iterator<Object []> userData() throws IOException {
+        List<Object []> list = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/users.csv")));
+        String line = reader.readLine();
+        while (line!=null) {
+            String[] split= line.split(";");
+            list.add(new Object[]{new UserDataBuilder().
+                    setName(split[0]).
+                    setPassword(split[1]).
+                    setEmail(split[2]).
+                    createUserData()});
+            line = reader.readLine();
+        }
+        return list.iterator();
+    }
 
     @Test
     public void testOpenAllCategories() {
@@ -23,13 +44,8 @@ public class FirstTest extends TestBase {
 
     }
 
-    @Test
-    public void testRegistration() {
-
-        UserData userData = new UserDataBuilder().
-                setName("name3").
-                setPassword("password").
-                createUserData();
+    @Test(dataProvider = "userData")
+    public void testRegistration(UserData userData) {
 
         goTo.openLoginPage();
         goTo.openRegistrationForm();
