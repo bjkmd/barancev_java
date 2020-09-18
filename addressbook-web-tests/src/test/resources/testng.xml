@@ -1,0 +1,20 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite1" verbose="1" >
+    <test name="UserRegistrationTest" >
+        <classes>
+            <class name="bjk.learn.java.barancev.tests.UserRegistrationTest" />
+        </classes>
+    </test>
+    <test name="UserModificationTest" >
+        <classes>
+            <class name="bjk.learn.java.barancev.tests.UserModificationTest" />
+        </classes>
+    </test>
+    <test name="CartTest">
+        <classes>
+            <class name="bjk.learn.java.barancev.tests.CartTest"/>
+        </classes>
+    </test>
+
+</suite>

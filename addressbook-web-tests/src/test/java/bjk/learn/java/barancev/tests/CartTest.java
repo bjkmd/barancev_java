@@ -2,6 +2,7 @@ package bjk.learn.java.barancev.tests;
 
 import bjk.learn.java.barancev.dataObjects.CartItems;
 import bjk.learn.java.barancev.dataObjects.ProductInCartItem;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -27,6 +28,8 @@ public class CartTest extends TestBase {
   @Test
   public void testAddToCart() {
 
+    logger.info("Started test testAddToCart");
+
     CartItems before;
 
     action.fillInCart();
@@ -39,6 +42,8 @@ public class CartTest extends TestBase {
     assertThat(after.size(),equalTo(before.size()+1));
     ProductInCartItem toRemove = after.iterator().next();
     assertThat(after.without(toRemove), equalTo(before));
+
+    logger.info("Finished test testAddToCart");
 
   }
 
@@ -64,6 +69,8 @@ public class CartTest extends TestBase {
     assertThat(after, equalTo(before.without(toRemove)));
 
   }
+
+
 
   @Test
   public void testRemoveFromCartThenAddTheSameProduct() {
@@ -103,6 +110,30 @@ public class CartTest extends TestBase {
     goTo.cart();
     Set<ProductInCartItem> after = user.getProductsInCart();
     assertThat(after, equalTo(before));
+  }
+
+  @Test
+  public void testAddToCartLong() {
+
+    goTo.mainPage();
+    goTo.category("FISH");
+    Assert.assertEquals(user.getProductsList().size(), 4);
+    goTo.pdpByNumber(2);
+    user.addToCartByNumber(1);
+    goTo.cart();
+    Set<ProductInCartItem> before = user.getProductsInCart();
+
+    goTo.category("DOGS");
+    goTo.pdpByNumber(2);
+    user.addToCartByNumber(1);
+    goTo.cart();
+    Set<ProductInCartItem> after = user.getProductsInCart();
+
+    Assert.assertEquals(before.size() + 1, after.size());
+    ProductInCartItem toRemove = after.iterator().next();
+    after.remove(toRemove);
+    Assert.assertEquals(before, after);
+
   }
 
 }

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class FirstTest extends TestBase {
+public class UserModificationTest extends TestBase {
 
   @DataProvider
   public Iterator<Object[]> userDataCsv() throws IOException {
@@ -71,53 +71,19 @@ public class FirstTest extends TestBase {
     }
   }
 
-  @Test
-  public void testOpenAllCategories() {
-
-    goTo.mainPage();
-    goTo.category("FISH");
-    goTo.category("DOGS");
-    goTo.category("CATS");
-    goTo.category("REPTILES");
-    goTo.category("BIRDS");
-
-  }
 
   @Test(dataProvider = "userDataJson")
-  public void testRegistration(UserData userData) {
-    goTo.openLoginPage();
-    goTo.openRegistrationForm();
-    user.fillRegistrationForm(userData);
+  public void testEditUser(UserData userData) {
 
-  }
-
-  @Test
-  public void testLogin() {
-
-    goTo.mainPage();
-    goTo.openLoginPage();
-
-    UserData userData = new UserDataBuilder().
-            setName("name3").
-            setPassword("password").
-            createUserData();
-
-    user.fillLoginForm(userData);
-
-  }
-
-  @Test
-  public void testEditUser() {
-
-    UserData userData = new UserDataBuilder().
-            setName("name3").
-            setPassword("password").
-            createUserData();
+//    UserData userData = new UserDataBuilder().
+//            setName("name3").
+//            setPassword("password").
+//            createUserData();
 
     UserData userDataEdited = new UserDataBuilder().
-            setName("name3").
-            setPassword("password").
-            setAddr1("Addr1 EDITED").
+            setName(userData.getName()).
+            setPassword(userData.getPassword()).
+            setAddr1(userData.getAddr1()+" EDITED").
             createUserData();
 
     goTo.mainPage();
@@ -127,29 +93,11 @@ public class FirstTest extends TestBase {
 
     user.fillUserProfileForm(userDataEdited);
 
-  }
+    user.logOut();
 
-  @Test
-  public void testAddToCart() {
 
-    goTo.mainPage();
-    goTo.category("FISH");
-    Assert.assertEquals(user.getProductsList().size(), 4);
-    goTo.pdpByNumber(2);
-    user.addToCartByNumber(1);
-    goTo.cart();
-    Set<ProductInCartItem> before = user.getProductsInCart();
-
-    goTo.category("DOGS");
-    goTo.pdpByNumber(2);
-    user.addToCartByNumber(1);
-    goTo.cart();
-    Set<ProductInCartItem> after = user.getProductsInCart();
-
-    Assert.assertEquals(before.size() + 1, after.size());
-    ProductInCartItem toRemove = after.iterator().next();
-    after.remove(toRemove);
-    Assert.assertEquals(before, after);
 
   }
+
+
 }

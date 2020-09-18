@@ -32,6 +32,10 @@ public class UserActionsHelper extends HelperBase {
     click(By.name("editAccount"));
   }
 
+  public void logOut() {
+    click(By.linkText("Sign Out"));
+  }
+
   private void fillUserProfile(UserData userData) {
 
     if (isElementPresent(By.name("username"))) {
