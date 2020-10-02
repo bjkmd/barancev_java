@@ -1,6 +1,7 @@
 package bjk.learn.java.barancev.appmanager;
 
 import bjk.learn.java.barancev.helpers.CompositeActionsHelper;
+import bjk.learn.java.barancev.helpers.DBHelper;
 import bjk.learn.java.barancev.helpers.NavigationHelper;
 import bjk.learn.java.barancev.helpers.UserActionsHelper;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -25,6 +26,7 @@ public class ApplicationManager {
     NavigationHelper navigationHelper;
     UserActionsHelper userActionsHelper;
     CompositeActionsHelper compositeActionsHelper;
+    DBHelper dbHelper;
     private final String browser;
 
     public ApplicationManager(String browser) {
@@ -40,6 +42,9 @@ public class ApplicationManager {
     }
     public CompositeActionsHelper getCompositeActionsHelper() {
         return compositeActionsHelper;
+    }
+    public DBHelper getDBHelper() {
+        return dbHelper;
     }
 
     public void init() throws IOException {
@@ -57,6 +62,7 @@ public class ApplicationManager {
         navigationHelper = new NavigationHelper(driver);
         userActionsHelper = new UserActionsHelper(driver);
         compositeActionsHelper = new CompositeActionsHelper(driver);
+        dbHelper = new DBHelper();
 
         navigationHelper.openPageByURL(properties.getProperty("web.baseUrl"));
 

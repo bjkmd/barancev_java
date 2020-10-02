@@ -65,8 +65,8 @@ public class UserActionsHelper extends HelperBase {
     List<WebElement> elements = driver.findElements(By.xpath("//*[tr]/*[td]/*[a]/.."));
     for (WebElement element :
             elements) {
-      String productId = element.findElement(By.xpath("//td[1]")).getText();
-      String productName = element.findElement(By.xpath("//td[2]")).getText();
+      String productId = element.findElement(By.xpath(".//td[1]")).getText();
+      String productName = element.findElement(By.xpath(".//td[2]")).getText();
       Product product = new Product(productName, productId);
       products.add(product);
     }

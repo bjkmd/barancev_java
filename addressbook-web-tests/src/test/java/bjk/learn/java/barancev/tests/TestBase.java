@@ -2,6 +2,8 @@ package bjk.learn.java.barancev.tests;
 
 import bjk.learn.java.barancev.appmanager.ApplicationManager;
 import bjk.learn.java.barancev.helpers.CompositeActionsHelper;
+//import bjk.learn.java.barancev.helpers.DBHelper;
+import bjk.learn.java.barancev.helpers.DBHelper;
 import bjk.learn.java.barancev.helpers.NavigationHelper;
 import bjk.learn.java.barancev.helpers.UserActionsHelper;
 import org.openqa.selenium.remote.BrowserType;
@@ -23,6 +25,7 @@ public abstract class TestBase {
     protected NavigationHelper goTo;
     protected UserActionsHelper user;
     protected CompositeActionsHelper action;
+    protected DBHelper db;
 
     @BeforeTest
     public void setUp() throws IOException {
@@ -30,6 +33,7 @@ public abstract class TestBase {
         user = app.getUserActionsHelper();
         goTo = app.getNavigationHelper();
         action = app.getCompositeActionsHelper();
+        db = app.getDBHelper();
     }
 
     @AfterTest
